@@ -1,6 +1,11 @@
 import Logo from "/images/logo.svg";
 import MastercraftLogo from "/images/logo-mastercraft.svg";
 import BookmarkSVG from "/images/icon-bookmark.svg";
+import Progress from "./_components/Progress";
+import About from "./_components/About";
+
+
+
 
 export default function App() {
     return (
@@ -9,13 +14,18 @@ export default function App() {
             className="w-full min-h-screen flex flex-col items-center font-commissioner bg-[#fafafa]"
         >
             <Top />
-            <div className="w-full flex-grow flex flex-col items-center md:px-[20vw] -translate-y-[5rem] gap-8">
+            <div className="w-full flex-grow flex flex-col items-center md:px-[22vw] -translate-y-[5rem] gap-8">
                 <Introduction />
-                
+                <Progress />
+                <About />
             </div>
         </main>
     );
 }
+
+
+
+
 
 function Introduction() {
     return (
@@ -35,16 +45,16 @@ function Introduction() {
                 </span>
             </div>
             <div className="w-full flex items-center justify-between py-8">
-                <button className="bg-c_Moderate_cyan font-medium px-8 py-3 rounded-full text-white">
+                <button className="bg-c_Moderate_cyan font-medium px-8 py-3 rounded-full text-white transition hover:bg-c_Dark_cyan">
                     Back this project
                 </button>
-                <div className="flex rounded-full  bg-gray-100 items-center">
+                <div className="flex rounded-full  bg-gray-100 items-center transition hover:opacity-80 cursor-pointer">
                     <button className="h-full aspect-square rounded-full transition bg-black">
                         <span className="sr-only">bookmark</span>
                         <img
                             src={BookmarkSVG}
                             alt="bookmark svg"
-                            className="aspect-square h-full"
+                            className="aspect-square h-12"
                         />
                     </button>
                     <span className="text-c_Dark_gray font-bold px-4">
