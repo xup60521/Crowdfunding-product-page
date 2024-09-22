@@ -1,19 +1,42 @@
 import Logo from "@/assets/images/logo.svg";
 import MastercraftLogo from "@/assets/images/logo-mastercraft.svg";
-import BookmarkSVG from "@/assets/images/icon-bookmark.svg";
 import Progress from "./_components/Progress";
 import About from "./_components/About";
 import { Fragment, useState } from "react";
-import Modal from "./_components/Modal";
 import { AnimatePresence } from "framer-motion";
+import MainModal from "./_components/modal/MainModal";
+import Backdrop from "./_components/modal/Backdrop";
+import ModalFinish from "./_components/modal/ModalFinish";
+import { IoIosBookmark } from "react-icons/io";
 
 export default function App() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isFinished, setIsFinished] = useState(false);
 
     return (
         <Fragment>
             <AnimatePresence>
-                {isModalOpen && <Modal key="modal" setIsModalOpen={setIsModalOpen} />}
+                {isModalOpen && (
+                    <Backdrop
+                        key="modal"
+                        setIsModalOpen={setIsModalOpen}
+                        setIsFinished={setIsFinished}
+                    />
+                )}
+                {isModalOpen && !isFinished && (
+                    <MainModal
+                        key={"main modal"}
+                        setIsFinished={setIsFinished}
+                        setIsModalOpen={setIsModalOpen}
+                    />
+                )}
+                {isModalOpen && isFinished && (
+                    <ModalFinish
+                        key={"modal finish component"}
+                        setIsFinished={setIsFinished}
+                        setIsModalOpen={setIsModalOpen}
+                    />
+                )}
             </AnimatePresence>
             <main
                 data-testid="test-app"
@@ -35,6 +58,7 @@ function Introduction({
 }: {
     setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+    const [isBookmarked, setIsBookmarked] = useState(false);
     return (
         <section className="bg-white px-12 rounded-lg flex flex-col items-center w-full">
             <img
@@ -54,20 +78,26 @@ function Introduction({
             <div className="w-full flex items-center justify-between py-8">
                 <button
                     onMouseDown={() => setIsModalOpen(true)}
-                    className="bg-c_Moderate_cyan font-medium px-8 py-3 rounded-full text-white transition hover:bg-c_Dark_cyan"
+                    className="bg-c_Moderate_cyan text-sm font-bold px-8 py-3 rounded-full text-white transition hover:bg-c_Dark_cyan"
                 >
                     Back this project
                 </button>
-                <div className="flex rounded-full  bg-gray-100 items-center transition hover:opacity-80 cursor-pointer">
-                    <button className="h-full aspect-square rounded-full transition bg-black">
+                <div
+                    onMouseDown={() => setIsBookmarked(!isBookmarked)}
+                    className="flex rounded-full  bg-gray-100 items-center transition hover:opacity-80 cursor-pointer"
+                >
+                    <button className="h-full aspect-square rounded-full transition">
                         <span className="sr-only">bookmark</span>
-                        <img
+                        {/* <img
                             src={BookmarkSVG}
                             alt="bookmark svg"
                             className="aspect-square h-12"
-                        />
+                        /> */}
+                        <div className={`aspect-square flex h-[2.75rem] items-center justify-center transition ${isBookmarked ? "bg-c_Dark_cyan bg-opacity-100" : "bg-black bg-opacity-90"} rounded-full`}>
+                            <IoIosBookmark className={`size-5 ${isBookmarked ? "text-white" : "text-c_Dark_gray"}`} />
+                        </div>
                     </button>
-                    <span className="text-c_Dark_gray font-bold px-4">
+                    <span className={`font-bold px-4 text-sm ${isBookmarked ? "text-c_Dark_cyan" : "text-c_Dark_gray"}`}>
                         Bookmark
                     </span>
                 </div>
