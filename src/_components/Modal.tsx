@@ -2,14 +2,13 @@ import { motion } from "framer-motion";
 import { Fragment } from "react/jsx-runtime";
 import { IoClose } from "react-icons/io5";
 import { Data, type Unpacked } from "../utils";
-import { useState } from "react";
 
 export default function Modal({
     setIsModalOpen,
 }: {
     setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-    const [selectedIndex, setSelectedIndex] = useState<null | number>(null)
+    
     return (
         <Fragment>
             <motion.div
