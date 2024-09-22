@@ -21,11 +21,11 @@ export default function MainModal({
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 50, opacity: 0 }}
             transition={{ type: "keyframes", duration: 0.25 }}
-            className="w-full fixed min-h-screen flex flex-col font-commissioner items-center justify-center p-8 z-20"
+            className="w-full px-6 fixed min-h-screen flex flex-col font-commissioner items-center justify-center p-8 z-20"
         >
             <div
                 onMouseDown={(e) => e.stopPropagation()}
-                className="w-[48rem] max-h-[90vh] overflow-y-scroll bg-white rounded-lg flex flex-col px-8 py-12 relative gap-4"
+                className="md:w-[48rem] max-h-[90vh] overflow-y-scroll bg-white rounded-lg flex flex-col px-8 py-12 relative gap-4"
             >
                 <button
                     onMouseDown={() => setIsModalOpen(false)}
@@ -120,7 +120,7 @@ function Item(props: {
     return (
         <div
             onMouseDown={selectPledge}
-            className={`w-full rounded-md border-2 ${
+            className={`w-full rounded-lg border-2 ${
                 isDisabled && "opacity-50"
             } ${
                 isSelected
@@ -128,8 +128,8 @@ function Item(props: {
                     : "border-c_Dark_gray border-opacity-10 "
             }`}
         >
-            <div className="w-full group flex px-6 pt-6 pb-8 transition gap-6 cursor-pointer">
-                <div className="">
+            <div className="w-full group flex md:flex-row flex-col px-6 pt-6 pb-8 transition gap-6 cursor-pointer">
+                <div className="flex gap-4 items-center">
                     <button
                         disabled={left === 0}
                         className="size-6 rounded-full border-2 group-hover:border-c_Moderate_cyan group-hover:border-opacity-100 transition border-c_Dark_gray border-opacity-10 p-[0.3rem]"
@@ -143,10 +143,20 @@ function Item(props: {
                             } transition rounded-full w-full h-full`}
                         ></div>
                     </button>
+                    <div className="flex flex-col md:hidden text-sm">
+                        <span className="font-bold text-sm">
+                            {title}
+                        </span>
+                        {price_tag !== "" && (
+                            <span className="text-c_Moderate_cyan font-semibold">
+                                {price_tag}
+                            </span>
+                        )}
+                    </div>
                 </div>
                 <div className="flex flex-col gap-3">
-                    <div className="flex items-center py-1 gap-4">
-                        <h3 className="font-bold transition group-hover:text-c_Moderate_cyan">
+                    <div className="md:flex hidden items-center py-1 gap-4">
+                        <h3 className="font-bold md:block hidden transition group-hover:text-c_Moderate_cyan">
                             {title}
                         </h3>
                         {price_tag !== "" && (
@@ -165,28 +175,40 @@ function Item(props: {
                         )}
                     </div>
                     <p className="text-c_Dark_gray">{description}</p>
+                    {!!left && (
+                            <div className="w-fit flex items-center gap-2 md:hidden">
+                                <span className="font-bold text-lg">
+                                    {left}
+                                </span>
+                                <span className="text-c_Dark_gray">left</span>
+                            </div>
+                        )}
                 </div>
             </div>
             {isSelected && (
-                <div className="w-full px-6 border-t-c_Dark_gray border-opacity-10 border-t-2 flex items-center py-6 gap-4">
-                    <span className="text-c_Dark_gray">Enter your pledge</span>
+                <div className="w-full px-6 border-t-c_Dark_gray border-opacity-10 border-t-2 flex md:flex-row flex-col gap-2 items-center py-6">
+                    <span className="text-c_Dark_gray md:text-[1rem] text-sm">
+                        Enter your pledge
+                    </span>
                     <div className="flex-grow"></div>
-                    <div className="text-sm py-3 rounded-full border-2 focus-within:border-opacity-100 transition focus-within:border-c_Moderate_cyan border-c_Dark_gray border-opacity-10 relative">
-                        <span className="absolute text-c_Dark_gray left-6 font-bold opacity-50">
-                            $
-                        </span>
-                        <input
-                            ref={inputRef}
-                            type="text"
-                            className="text-sm h-full font-bold outline-none w-24 pl-10 pr-2 rounded-full cursor-pointer z-10"
-                        />
+                    <div className="flex items-center gap-4">
+                        <div className="text-sm py-3 rounded-full border-2 focus-within:border-opacity-100 transition focus-within:border-c_Moderate_cyan border-c_Dark_gray border-opacity-10 relative">
+                            <span className="absolute text-c_Dark_gray left-6 font-bold opacity-50">
+                                $
+                            </span>
+                            <input
+                                ref={inputRef}
+                                type="text"
+                                className="text-sm h-full font-bold outline-none w-24 pl-10 pr-2 rounded-full cursor-pointer z-10"
+                            />
+                        </div>
+                        <button
+                            onMouseDown={onContinue}
+                            className="text-sm font-bold text-white transition bg-c_Moderate_cyan hover:bg-c_Dark_cyan px-6 py-3 rounded-full"
+                        >
+                            Continue
+                        </button>
                     </div>
-                    <button
-                        onMouseDown={onContinue}
-                        className="text-sm font-bold text-white transition bg-c_Moderate_cyan hover:bg-c_Dark_cyan px-6 py-3 rounded-full"
-                    >
-                        Continue
-                    </button>
                 </div>
             )}
         </div>

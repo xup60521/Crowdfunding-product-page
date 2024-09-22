@@ -71,9 +71,9 @@ export default function Progress() {
         });
     }, []);
     return (
-        <section className="w-full px-12 flex flex-col py-12 bg-white gap-10">
-            <div className="grid grid-cols-3">
-                <div className="flex flex-col w-full h-full gap-2">
+        <section className="w-full px-12 flex flex-col py-12 bg-white gap-10 border-[1px] border-c_Dark_gray border-opacity-10 rounded-lg">
+            <div className="md:grid grid-cols-3 flex flex-col md:items-start items-center">
+                <div className="flex flex-col w-full h-full gap-2 md:items-start items-center">
                     <div className="font-bold text-3xl">
                         $
                         <span ref={currentBackedRef}>
@@ -84,7 +84,8 @@ export default function Progress() {
                         of ${Backed_Goal.toLocaleString()} backed
                     </span>
                 </div>
-                <div className="flex flex-col w-full h-full gap-2 border-l-[1px] border-c_Dark_gray px-12">
+                <div className="w-20 border-t-[1px] border-c_Dark_gray border-opacity-30 md:hidden my-4"></div>
+                <div className="flex flex-col w-full h-full gap-2 md:border-l-[1px] border-c_Dark_gray px-12 md:items-start items-center">
                     <span ref={totalBackersRef} className="font-bold text-3xl">
                         {totalBackers.toLocaleString()}
                     </span>
@@ -92,7 +93,8 @@ export default function Progress() {
                         total backers
                     </span>
                 </div>
-                <div className="flex flex-col w-full h-full gap-2 border-l-[1px] border-c_Dark_gray px-12">
+                <div className="w-20 border-t-[1px] border-c_Dark_gray border-opacity-30 md:hidden my-4"></div>
+                <div className="flex flex-col w-full h-full gap-2 md:border-l-[1px] border-c_Dark_gray px-12 md:items-start items-center">
                     <span ref={daysLeftRef} className="font-bold text-3xl">{daysLeft.toLocaleString()}</span>
                     <span className="text-c_Dark_gray text-sm">days left</span>
                 </div>

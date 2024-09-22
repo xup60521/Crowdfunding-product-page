@@ -3,9 +3,11 @@ import { motion } from "framer-motion";
 export default function Backdrop({
     setIsModalOpen,
     setIsFinished,
+    setIsMenuOpen,
 }: {
     setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setIsFinished: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
     return (
         <motion.div
@@ -13,6 +15,7 @@ export default function Backdrop({
             onMouseDown={() => {
                 setIsModalOpen(false);
                 setIsFinished(false);
+                setIsMenuOpen(false)
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
